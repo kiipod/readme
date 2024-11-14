@@ -7,4 +7,6 @@
 .phpunit.result.cache
 /public/assets
 /assets/vendor
-/docker/dev/Nginx/logs
+/docker/dev
+/tests
+tz.md

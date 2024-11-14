@@ -1,0 +1,52 @@
+version: '3.9'
+
+networks:
+  symfony-app:
+
+services:
+  nginx:
+    build: ./docker/dev/Nginx
+    container_name: nginx
+    ports:
+      - 80:80
+    volumes:
+      - .:/app
+      - ./docker/dev/Nginx/core:/etc/nginx/
+      - ./docker/dev/Nginx/logs:/var/log/nginx/
+    depends_on:
+      - app
+    networks:
+      - symfony-app
+
+  app:
+    build: ./docker/dev/App
+    container_name: app
+    environment:
+      - POSTGRES_HOST=${POSTGRES_HOST}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - .:/app
+    depends_on:
+      - postgres
+    networks:
+      - symfony-app
+
+  postgres:
+    build: ./docker/dev/Postgres
+    container_name: postgres
+    environment:
+      - POSTGRES_HOST=${POSTGRES_HOST}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - ${POSTGRES_HOST_PORT}:${POSTGRES_CONTAINER_PORT}
+    volumes:
+      - psql_data:/var/lib/postgresql/data
+    networks:
+      - symfony-app
+
+volumes:
+  psql_data:
