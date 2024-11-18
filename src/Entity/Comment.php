@@ -26,6 +26,9 @@ class Comment
     #[ORM\JoinColumn(nullable: false)]
     private ?Post $post = null;
 
+    #[ORM\ManyToOne(inversedBy: 'comments')]
+    private ?User $commentator = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -63,6 +66,18 @@ class Comment
     public function setPost(?Post $post): static
     {
         $this->post = $post;
+
+        return $this;
+    }
+
+    public function getCommentator(): ?User
+    {
+        return $this->commentator;
+    }
+
+    public function setCommentator(?User $commentator): static
+    {
+        $this->commentator = $commentator;
 
         return $this;
     }

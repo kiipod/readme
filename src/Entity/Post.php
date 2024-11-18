@@ -54,9 +54,33 @@ class Post
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'post', orphanRemoval: true)]
     private Collection $comments;
 
+    /**
+     * @var Collection<int, PostLike>
+     */
+    #[ORM\OneToMany(targetEntity: PostLike::class, mappedBy: 'post')]
+    private Collection $postLikes;
+
+    /**
+     * @var Collection<int, PostHashtag>
+     */
+    #[ORM\OneToMany(targetEntity: PostHashtag::class, mappedBy: 'post')]
+    private Collection $postHashtags;
+
+    #[ORM\ManyToOne(inversedBy: 'creators')]
+    private ?User $creator = null;
+
+    /**
+     * @var Collection<int, Repost>
+     */
+    #[ORM\OneToMany(targetEntity: Repost::class, mappedBy: 'post')]
+    private Collection $reposts;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->postLikes = new ArrayCollection();
+        $this->postHashtags = new ArrayCollection();
+        $this->reposts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -208,6 +232,108 @@ class Post
             // set the owning side to null (unless already changed)
             if ($comment->getPost() === $this) {
                 $comment->setPost(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PostLike>
+     */
+    public function getPostLikes(): Collection
+    {
+        return $this->postLikes;
+    }
+
+    public function addPostLike(PostLike $postLike): static
+    {
+        if (!$this->postLikes->contains($postLike)) {
+            $this->postLikes->add($postLike);
+            $postLike->setPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removePostLike(PostLike $postLike): static
+    {
+        if ($this->postLikes->removeElement($postLike)) {
+            // set the owning side to null (unless already changed)
+            if ($postLike->getPost() === $this) {
+                $postLike->setPost(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PostHashtag>
+     */
+    public function getPostHashtags(): Collection
+    {
+        return $this->postHashtags;
+    }
+
+    public function addPostHashtag(PostHashtag $postHashtag): static
+    {
+        if (!$this->postHashtags->contains($postHashtag)) {
+            $this->postHashtags->add($postHashtag);
+            $postHashtag->setPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removePostHashtag(PostHashtag $postHashtag): static
+    {
+        if ($this->postHashtags->removeElement($postHashtag)) {
+            // set the owning side to null (unless already changed)
+            if ($postHashtag->getPost() === $this) {
+                $postHashtag->setPost(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCreator(): ?User
+    {
+        return $this->creator;
+    }
+
+    public function setCreator(?User $creator): static
+    {
+        $this->creator = $creator;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Repost>
+     */
+    public function getReposts(): Collection
+    {
+        return $this->reposts;
+    }
+
+    public function addRepost(Repost $repost): static
+    {
+        if (!$this->reposts->contains($repost)) {
+            $this->reposts->add($repost);
+            $repost->setPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRepost(Repost $repost): static
+    {
+        if ($this->reposts->removeElement($repost)) {
+            // set the owning side to null (unless already changed)
+            if ($repost->getPost() === $this) {
+                $repost->setPost(null);
             }
         }
 

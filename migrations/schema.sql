@@ -20,8 +20,7 @@ CREATE TABLE hashtags (
 /* Таблица публикаций */
 CREATE TABLE posts (
     id int AUTO_INCREMENT PRIMARY KEY,
-    author_id int,
-    user_id int NOT NULL,
+    creator_id int NOT NULL,
     type_id int NOT NULL,
     title VARCHAR(255) NOT NULL,
     slug VARCHAR(255) UNIQUE NOT NULL,
@@ -33,9 +32,17 @@ CREATE TABLE posts (
     view_stats int NOT NULL,
     is_repost BOOLEAN default(0),
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (type_id) REFERENCES type_posts(id),
-    FOREIGN KEY (hashtag_id) REFERENCES hashtags(id)
+    FOREIGN KEY (creator_id) REFERENCES users(id),
+    FOREIGN KEY (type_id) REFERENCES type_posts(id)
+);
+
+/* Таблица для репостов */
+CREATE TABLE reposts (
+    id int AUTO_INCREMENT PRIMARY KEY,
+    post_id int NOT NULL,
+    reposted_user_id int NOT NULL,
+    FOREIGN KEY (post_id) REFERENCES posts(id),
+    FOREIGN KEY (reposted_user_id) REFERENCES users(id)
 );
 
 /* Таблица связи хештегов с публикацией */
@@ -52,19 +59,19 @@ CREATE TABLE comments (
     id int AUTO_INCREMENT PRIMARY KEY,
     text TEXT NOT NULL,
     post_id int NOT NULL,
-    user_id int NOT NULL,
+    commentator_id int NOT NULL,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (post_id) REFERENCES posts(id),
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    FOREIGN KEY (commentator_id) REFERENCES users(id)
 );
 
 /* Таблица связи лайков с публикациями */
 CREATE TABLE post_likes (
     id int AUTO_INCREMENT PRIMARY KEY,
     post_id int NOT NULL,
-    user_id int NOT NULL,
+    like_user_id int NOT NULL,
     FOREIGN KEY (post_id) REFERENCES posts(id),
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    FOREIGN KEY (like_user_id) REFERENCES users(id)
 );
 
 /* Таблица подписчиков пользователя */
@@ -77,7 +84,7 @@ CREATE TABLE subscribers (
 );
 
 /* Таблица сообщений пользователей */
-CREATE TABLE messengers (
+CREATE TABLE messages (
     id int AUTO_INCREMENT PRIMARY KEY,
     sender_id int NOT NULL,
     recipient_id int NOT NULL,

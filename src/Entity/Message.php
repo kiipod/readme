@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Repository\MessengerRepository;
+use App\Repository\MessageRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: MessengerRepository::class)]
-class Messenger
+#[ORM\Entity(repositoryClass: MessageRepository::class)]
+class Message
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

@@ -11,7 +11,6 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ORM\Table(name: '`user`')]
 class User
 {
     #[ORM\Id]
@@ -35,15 +34,15 @@ class User
     private ?\DateTimeInterface $created_at = null;
 
     /**
-     * @var Collection<int, Messenger>
+     * @var Collection<int, Message>
      */
-    #[ORM\OneToMany(targetEntity: Messenger::class, mappedBy: 'sender', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'sender', orphanRemoval: true)]
     private Collection $senders;
 
     /**
-     * @var Collection<int, Messenger>
+     * @var Collection<int, Message>
      */
-    #[ORM\OneToMany(targetEntity: Messenger::class, mappedBy: 'recipient', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'recipient', orphanRemoval: true)]
     private Collection $recipients;
 
     /**
@@ -58,12 +57,40 @@ class User
     #[ORM\OneToMany(targetEntity: Subscriber::class, mappedBy: 'subscribed')]
     private Collection $subscribeds;
 
+    /**
+     * @var Collection<int, PostLike>
+     */
+    #[ORM\OneToMany(targetEntity: PostLike::class, mappedBy: 'likeUser')]
+    private Collection $postLikes;
+
+    /**
+     * @var Collection<int, Comment>
+     */
+    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'commentator')]
+    private Collection $comments;
+
+    /**
+     * @var Collection<int, Post>
+     */
+    #[ORM\OneToMany(targetEntity: Post::class, mappedBy: 'creator')]
+    private Collection $creators;
+
+    /**
+     * @var Collection<int, Repost>
+     */
+    #[ORM\OneToMany(targetEntity: Repost::class, mappedBy: 'repostUser')]
+    private Collection $reposts;
+
     public function __construct()
     {
         $this->senders = new ArrayCollection();
         $this->recipients = new ArrayCollection();
         $this->subscribers = new ArrayCollection();
         $this->subscribeds = new ArrayCollection();
+        $this->postLikes = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+        $this->creators = new ArrayCollection();
+        $this->reposts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -132,14 +159,14 @@ class User
     }
 
     /**
-     * @return Collection<int, Messenger>
+     * @return Collection<int, Message>
      */
     public function getSenders(): Collection
     {
         return $this->senders;
     }
 
-    public function addSender(Messenger $sender): static
+    public function addSender(Message $sender): static
     {
         if (!$this->senders->contains($sender)) {
             $this->senders->add($sender);
@@ -149,7 +176,7 @@ class User
         return $this;
     }
 
-    public function removeSender(Messenger $sender): static
+    public function removeSender(Message $sender): static
     {
         if ($this->senders->removeElement($sender)) {
             // set the owning side to null (unless already changed)
@@ -162,14 +189,14 @@ class User
     }
 
     /**
-     * @return Collection<int, Messenger>
+     * @return Collection<int, Message>
      */
     public function getRecipients(): Collection
     {
         return $this->recipients;
     }
 
-    public function addRecipient(Messenger $recipient): static
+    public function addRecipient(Message $recipient): static
     {
         if (!$this->recipients->contains($recipient)) {
             $this->recipients->add($recipient);
@@ -179,7 +206,7 @@ class User
         return $this;
     }
 
-    public function removeRecipient(Messenger $recipient): static
+    public function removeRecipient(Message $recipient): static
     {
         if ($this->recipients->removeElement($recipient)) {
             // set the owning side to null (unless already changed)
@@ -245,6 +272,126 @@ class User
             // set the owning side to null (unless already changed)
             if ($subscribed->getSubscribed() === $this) {
                 $subscribed->setSubscribed(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PostLike>
+     */
+    public function getPostLikes(): Collection
+    {
+        return $this->postLikes;
+    }
+
+    public function addPostLike(PostLike $postLike): static
+    {
+        if (!$this->postLikes->contains($postLike)) {
+            $this->postLikes->add($postLike);
+            $postLike->setLikeUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePostLike(PostLike $postLike): static
+    {
+        if ($this->postLikes->removeElement($postLike)) {
+            // set the owning side to null (unless already changed)
+            if ($postLike->getLikeUser() === $this) {
+                $postLike->setLikeUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): static
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setCommentator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): static
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getCommentator() === $this) {
+                $comment->setCommentator(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Post>
+     */
+    public function getCreators(): Collection
+    {
+        return $this->creators;
+    }
+
+    public function addCreator(Post $creator): static
+    {
+        if (!$this->creators->contains($creator)) {
+            $this->creators->add($creator);
+            $creator->setCreator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCreator(Post $creator): static
+    {
+        if ($this->creators->removeElement($creator)) {
+            // set the owning side to null (unless already changed)
+            if ($creator->getCreator() === $this) {
+                $creator->setCreator(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Repost>
+     */
+    public function getReposts(): Collection
+    {
+        return $this->reposts;
+    }
+
+    public function addRepost(Repost $repost): static
+    {
+        if (!$this->reposts->contains($repost)) {
+            $this->reposts->add($repost);
+            $repost->setRepostUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRepost(Repost $repost): static
+    {
+        if ($this->reposts->removeElement($repost)) {
+            // set the owning side to null (unless already changed)
+            if ($repost->getRepostUser() === $this) {
+                $repost->setRepostUser(null);
             }
         }
 
