@@ -15,7 +15,7 @@ class LandingController extends AbstractController
      *
      * @return Response
      */
-    #[Route('/', name: 'home')]
+    #[Route('/', name: 'landing')]
     public function index(): Response
     {
         return $this->render('layouts/landing.html.twig');
