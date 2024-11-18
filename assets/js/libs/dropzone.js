@@ -128,7 +128,7 @@ var Emitter = function () {
   return Emitter;
 }();
 
-var Dropzone = function (_Emitter) {
+export var Dropzone = function (_Emitter) {
   _inherits(Dropzone, _Emitter);
 
   _createClass(Dropzone, null, [{
