@@ -1,6 +1,6 @@
-'use strict';
+import { Dropzone } from './libs/dropzone.js';
 
-'use script';
+'use strict';
 
 (function () {
   var ESC_KEYCODE = 27;
@@ -173,4 +173,3 @@
     });
   }
 })();
-//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiIiwic291cmNlcyI6WyJtYWluLmpzIl0sInNvdXJjZXNDb250ZW50IjpbIid1c2Ugc3RyaWN0JztcblxuLy89IHRlbXBsYXRlcy91dGlsLmpzXG4vLz0gdGVtcGxhdGVzL21vZGFsLmpzXG4vLz0gdGVtcGxhdGVzL2Ryb3B6b25lLXNldHRpbmdzLmpzXG4iXSwiZmlsZSI6Im1haW4uanMifQ==
