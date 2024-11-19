@@ -43,9 +43,6 @@ class Post
     private ?string $view_stats = null;
 
     #[ORM\Column]
-    private bool $is_repost = false;
-
-    #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
 
     /**
@@ -180,18 +177,6 @@ class Post
     public function setViewStats(string $view_stats): static
     {
         $this->view_stats = $view_stats;
-
-        return $this;
-    }
-
-    public function isRepost(): ?bool
-    {
-        return $this->is_repost;
-    }
-
-    public function setRepost(bool $is_repost): static
-    {
-        $this->is_repost = $is_repost;
 
         return $this;
     }

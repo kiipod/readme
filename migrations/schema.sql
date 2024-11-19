@@ -30,7 +30,6 @@ CREATE TABLE posts (
     author_quote VARCHAR(255),
     link VARCHAR(255),
     view_stats int NOT NULL,
-    is_repost BOOLEAN default(0),
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (creator_id) REFERENCES users(id),
     FOREIGN KEY (type_id) REFERENCES type_posts(id)
