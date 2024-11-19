@@ -29,6 +29,7 @@ class UserFixtures extends Fixture
             $user->setLogin($faker->unique()->userName());
             $user->setPassword($this->passwordHasher->hashPassword($user, 'password123'));
             $user->setAvatarFile($faker->imageUrl(100, 100, 'people', true, 'avatar'));
+            $user->setRoles(['ROLE_USER']);
             $user->setCreatedAt($faker->dateTime());
 
             $manager->persist($user);
