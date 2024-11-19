@@ -30,7 +30,6 @@ CREATE TABLE posts (
     author_quote VARCHAR(255),
     link VARCHAR(255),
     view_stats int NOT NULL,
-    is_repost BOOLEAN default(0),
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (creator_id) REFERENCES users(id),
     FOREIGN KEY (type_id) REFERENCES type_posts(id)
@@ -80,7 +79,7 @@ CREATE TABLE subscribers (
     subscriber_id int NOT NULL,
     subscribed_id int NOT NULL,
     FOREIGN KEY (subscriber_id) REFERENCES users(id),
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    FOREIGN KEY (subscribed_id) REFERENCES users(id)
 );
 
 /* Таблица сообщений пользователей */
@@ -90,8 +89,8 @@ CREATE TABLE messages (
     recipient_id int NOT NULL,
     text TEXT NOT NULL,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (subscriber_id) REFERENCES users(id),
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    FOREIGN KEY (sender_id) REFERENCES users(id),
+    FOREIGN KEY (recipient_id) REFERENCES users(id)
 );
 
 /* Таблица типов публикации */

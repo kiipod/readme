@@ -40,13 +40,10 @@ class Post
     private ?string $link = null;
 
     #[ORM\Column(type: Types::BIGINT)]
-    private ?string $view_stats = null;
+    private ?int $view_stats = null;
 
-    #[ORM\Column]
-    private bool $is_repost = false;
-
-    #[ORM\Column]
-    private ?\DateTimeImmutable $created_at = null;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $created_at = null;
 
     /**
      * @var Collection<int, Comment>
@@ -74,6 +71,10 @@ class Post
      */
     #[ORM\OneToMany(targetEntity: Repost::class, mappedBy: 'post')]
     private Collection $reposts;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?TypePost $type = null;
 
     public function __construct()
     {
@@ -177,31 +178,31 @@ class Post
         return $this->view_stats;
     }
 
-    public function setViewStats(string $view_stats): static
+    public function setViewStats(int $view_stats): static
     {
         $this->view_stats = $view_stats;
 
         return $this;
     }
 
-    public function isRepost(): ?bool
+    public function getType(): ?TypePost
     {
-        return $this->is_repost;
+        return $this->type;
     }
 
-    public function setRepost(bool $is_repost): static
+    public function setType(TypePost $type): static
     {
-        $this->is_repost = $is_repost;
+        $this->type = $type;
 
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->created_at;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $created_at): static
+    public function setCreatedAt(\DateTimeInterface $created_at): static
     {
         $this->created_at = $created_at;
 
