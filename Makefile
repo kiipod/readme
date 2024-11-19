@@ -9,3 +9,11 @@ docker-down-clear:
 #ASSET_MAPPER
 compile:
 	php bin/console asset-map:compile
+
+#APP
+migration:
+	php bin/console make:migration
+migrate:
+	php bin/console doctrine:migrations:migrate
+fixt-load:
+	php bin/console doctrine:fixtures:load
