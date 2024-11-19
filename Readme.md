@@ -41,13 +41,32 @@ git clone git@github.com:kiipod/readme.git readme
 cd readme
 ```
 
-3. Запустите проект с помощью docker-compose:
+3. Скопируйте .env-файл:
+
+```
+cp .env.dev.example .env
+```
+
+4. Запустите проект с помощью docker-compose:
 
 ```
 make docker-up
 ```
 
-4. Остановить все службы docker:
+5. Выполните команды для сборки и выполнения миграции:
+
+```
+make migration
+make migrate
+```
+
+6. Заполните БД фейковыми данными:
+
+```
+make fixt-load
+```
+
+7. Остановить все службы docker:
 
 ```
 make docker-down
