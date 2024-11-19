@@ -6,10 +6,11 @@ namespace App\DataFixtures;
 
 use App\Entity\PostLike;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 
-class PostLikeFixtures extends Fixture
+class PostLikeFixtures extends Fixture implements DependentFixtureInterface
 {
     public function getDependencies(): array
     {

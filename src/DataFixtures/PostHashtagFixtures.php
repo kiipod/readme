@@ -6,10 +6,11 @@ namespace App\DataFixtures;
 
 use App\Entity\PostHashtag;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 
-class PostHashtagFixtures extends Fixture
+class PostHashtagFixtures extends Fixture implements DependentFixtureInterface
 {
     public function getDependencies(): array
     {

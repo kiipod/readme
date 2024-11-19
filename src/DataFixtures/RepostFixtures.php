@@ -6,10 +6,11 @@ namespace App\DataFixtures;
 
 use App\Entity\Repost;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 
-class RepostFixtures extends Fixture
+class RepostFixtures extends Fixture implements DependentFixtureInterface
 {
     public function getDependencies(): array
     {

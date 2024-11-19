@@ -8,3 +8,4 @@
 /public/assets
 /assets/vendor
 /docker/dev/Nginx/logs
+/migrations/*php
