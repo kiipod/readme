@@ -11,6 +11,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
+#[ORM\Table(name: 'posts')]
 class Post
 {
     #[ORM\Id]
@@ -72,8 +73,7 @@ class Post
     #[ORM\OneToMany(targetEntity: Repost::class, mappedBy: 'post')]
     private Collection $reposts;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(targetEntity: TypePost::class, inversedBy: 'posts')]
     private ?TypePost $type = null;
 
     public function __construct()

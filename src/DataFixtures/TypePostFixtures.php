@@ -14,11 +14,11 @@ class TypePostFixtures extends Fixture
     {
         // Примеры фиксированных типов, которые можно использовать в приложении
         $typeNames = [
-            ['name' => 'Post', 'class' => 'post'],
-            ['name' => 'Image', 'class' => 'image'],
-            ['name' => 'Video', 'class' => 'video'],
-            ['name' => 'Quote', 'class' => 'quote'],
-            ['name' => 'Link', 'class' => 'link']
+            ['name' => 'post', 'class' => 'post'],
+            ['name' => 'image', 'class' => 'image'],
+            ['name' => 'video', 'class' => 'video'],
+            ['name' => 'quote', 'class' => 'quote'],
+            ['name' => 'link', 'class' => 'link']
         ];
 
         foreach ($typeNames as $key => $typeData) {

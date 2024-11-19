@@ -6,19 +6,12 @@ namespace App\DataFixtures;
 
 use App\Entity\Comment;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 
-class CommentFixtures extends Fixture
+class CommentFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function getDependencies(): array
-    {
-        return [
-            PostFixtures::class,
-            UserFixtures::class,
-        ];
-    }
-
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create();
@@ -36,5 +29,13 @@ class CommentFixtures extends Fixture
         }
 
         $manager->flush();
+    }
+
+    public function getDependencies(): array
+    {
+        return [
+            PostFixtures::class,
+            UserFixtures::class,
+        ];
     }
 }

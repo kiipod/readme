@@ -6,10 +6,11 @@ namespace App\DataFixtures;
 
 use App\Entity\Subscriber;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 
-class SubscriberFixtures extends Fixture
+class SubscriberFixtures extends Fixture implements DependentFixtureInterface
 {
     public function getDependencies(): array
     {

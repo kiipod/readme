@@ -8,6 +8,7 @@ use App\Repository\PostHashtagRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PostHashtagRepository::class)]
+#[ORM\Table(name: 'post_hashtags')]
 class PostHashtag
 {
     #[ORM\Id]

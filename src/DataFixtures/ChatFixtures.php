@@ -4,26 +4,20 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
-use App\Entity\Message;
+use App\Entity\Chat;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 
-class MessageFixtures extends Fixture
+class ChatFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function getDependencies(): array
-    {
-        return [
-            UserFixtures::class,
-        ];
-    }
-
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create();
 
         for ($i = 1; $i <= 30; $i++) {
-            $message = new Message();
+            $message = new Chat();
             $message->setText($faker->paragraph());
             $message->setCreatedAt($faker->dateTime());
 
@@ -41,5 +35,12 @@ class MessageFixtures extends Fixture
         }
 
         $manager->flush();
+    }
+
+    public function getDependencies(): array
+    {
+        return [
+            UserFixtures::class,
+        ];
     }
 }
