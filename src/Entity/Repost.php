@@ -8,6 +8,7 @@ use App\Repository\RepostRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: RepostRepository::class)]
+#[ORM\Table(name: 'reposts')]
 class Repost
 {
     #[ORM\Id]

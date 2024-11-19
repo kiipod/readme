@@ -9,9 +9,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+#[ORM\Table(name: 'users')]
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -34,15 +37,15 @@ class User
     private ?\DateTimeInterface $created_at = null;
 
     /**
-     * @var Collection<int, Message>
+     * @var Collection<int, Chat>
      */
-    #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'sender', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Chat::class, mappedBy: 'sender', orphanRemoval: true)]
     private Collection $senders;
 
     /**
-     * @var Collection<int, Message>
+     * @var Collection<int, Chat>
      */
-    #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'recipient', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Chat::class, mappedBy: 'recipient', orphanRemoval: true)]
     private Collection $recipients;
 
     /**
@@ -134,6 +137,21 @@ class User
         return $this;
     }
 
+    public function getRoles(): array
+    {
+        return ['ROLE_USER'];
+    }
+
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->email;
+    }
+
     public function getAvatarFile(): ?string
     {
         return $this->avatar_file;
@@ -159,14 +177,14 @@ class User
     }
 
     /**
-     * @return Collection<int, Message>
+     * @return Collection<int, Chat>
      */
     public function getSenders(): Collection
     {
         return $this->senders;
     }
 
-    public function addSender(Message $sender): static
+    public function addSender(Chat $sender): static
     {
         if (!$this->senders->contains($sender)) {
             $this->senders->add($sender);
@@ -176,7 +194,7 @@ class User
         return $this;
     }
 
-    public function removeSender(Message $sender): static
+    public function removeSender(Chat $sender): static
     {
         if ($this->senders->removeElement($sender)) {
             // set the owning side to null (unless already changed)
@@ -189,14 +207,14 @@ class User
     }
 
     /**
-     * @return Collection<int, Message>
+     * @return Collection<int, Chat>
      */
     public function getRecipients(): Collection
     {
         return $this->recipients;
     }
 
-    public function addRecipient(Message $recipient): static
+    public function addRecipient(Chat $recipient): static
     {
         if (!$this->recipients->contains($recipient)) {
             $this->recipients->add($recipient);
@@ -206,7 +224,7 @@ class User
         return $this;
     }
 
-    public function removeRecipient(Message $recipient): static
+    public function removeRecipient(Chat $recipient): static
     {
         if ($this->recipients->removeElement($recipient)) {
             // set the owning side to null (unless already changed)

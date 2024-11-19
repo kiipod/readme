@@ -8,6 +8,7 @@ use App\Repository\PostLikeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PostLikeRepository::class)]
+#[ORM\Table(name: 'post_likes')]
 class PostLike
 {
     #[ORM\Id]

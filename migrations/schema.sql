@@ -83,7 +83,7 @@ CREATE TABLE subscribers (
 );
 
 /* Таблица сообщений пользователей */
-CREATE TABLE messages (
+CREATE TABLE chats (
     id int AUTO_INCREMENT PRIMARY KEY,
     sender_id int NOT NULL,
     recipient_id int NOT NULL,
