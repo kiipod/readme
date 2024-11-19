@@ -56,7 +56,6 @@ make docker-up
 5. Выполните команды для сборки и выполнения миграции:
 
 ```
-make migration
 make migrate
 ```
 
