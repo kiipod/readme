@@ -79,7 +79,7 @@ CREATE TABLE subscribers (
     subscriber_id int NOT NULL,
     subscribed_id int NOT NULL,
     FOREIGN KEY (subscriber_id) REFERENCES users(id),
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    FOREIGN KEY (subscribed_id) REFERENCES users(id)
 );
 
 /* Таблица сообщений пользователей */
@@ -89,8 +89,8 @@ CREATE TABLE messages (
     recipient_id int NOT NULL,
     text TEXT NOT NULL,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (subscriber_id) REFERENCES users(id),
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    FOREIGN KEY (sender_id) REFERENCES users(id),
+    FOREIGN KEY (recipient_id) REFERENCES users(id)
 );
 
 /* Таблица типов публикации */
