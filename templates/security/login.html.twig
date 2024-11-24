@@ -1,0 +1,79 @@
+{% extends 'layouts/main.html.twig' %}
+
+{% block title %}Readme форма авторизации{% endblock %}
+
+{% block content %}
+
+    <main class="page__main page__main--login">
+
+        <div class="container">
+            <h1 class="page__title page__title--login">Вход</h1>
+        </div>
+
+        <section class="login container">
+
+            <h2 class="visually-hidden">Форма авторизации</h2>
+
+            <form class="login__form form" method="post">
+
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                {% if app.user %}
+                    <div class="mb-3">
+                        You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    </div>
+                {% endif %}
+
+                <div class="login__input-wrapper form__input-wrapper">
+                    <label class="login__label form__label" for="login-email">Электронная почта</label>
+                    <div class="form__input-section">
+
+                        <input class="login__input form__input" id="login-email" type="email" value="{{ last_username }}" name="_username" placeholder="Укажите эл.почту" autocomplete="email" required autofocus>
+
+                        <button class="form__error-button button" type="button">!<span class="visually-hidden">Информация об ошибке</span></button>
+                        <div class="form__error-text">
+                            <h3 class="form__error-title">Заголовок сообщения</h3>
+                            <p class="form__error-desc">Текст сообщения об ошибке, подробно объясняющий, что не так.</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="login__input-wrapper form__input-wrapper">
+                    <label class="login__label form__label" for="login-password">Пароль</label>
+                    <div class="form__input-section">
+
+                        <input class="login__input form__input" id="login-password" type="password" name="_password" placeholder="Введите пароль" autocomplete="current-password" required>
+
+                        <button class="form__error-button button button--main" type="button">!<span class="visually-hidden">Информация об ошибке</span></button>
+                        <div class="form__error-text">
+                            <h3 class="form__error-title">Заголовок сообщения</h3>
+                            <p class="form__error-desc">Текст сообщения об ошибке, подробно объясняющий, что не так.</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                {#
+                Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+                See https://symfony.com/doc/current/security/remember_me.html
+
+                <div class="checkbox mb-3">
+                    <input type="checkbox" name="_remember_me" id="_remember_me">
+                    <label for="_remember_me">Remember me</label>
+                </div>
+                #}
+
+                <button class="login__submit button button--main" type="submit">Отправить</button>
+
+            </form>
+
+        </section>
+
+    </main>
+
+{% endblock %}
