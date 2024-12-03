@@ -10,3 +10,7 @@
 /docker/dev
 /tests
 tz.md
+/node_modules/
+/public/build/
+npm-debug.log
+yarn-error.log
