@@ -19,3 +19,5 @@ migrate:
 	php bin/console doctrine:migrations:migrate
 fixt-load:
 	php bin/console doctrine:fixtures:load
+cache-clear:
+	php bin/console cache:clear
