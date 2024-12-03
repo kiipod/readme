@@ -8,8 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}readme: блог, каким он должен быть{% endblock %}</title>
 
+    {% block styles %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
     {% block scripts %}
-        {% block importmap %}{{ importmap('app') }}{% endblock %}
+        {{ encore_entry_script_tags('app') }}
     {% endblock %}
 </head>
 
@@ -25,7 +29,7 @@
 
         <div class="header__logo-wrapper">
             <a class="header__logo-link" href="/">
-                <img class="header__logo" src="{{ asset('img/logo.svg') }}" alt="Логотип readme" width="128" height="24">
+                <img class="header__logo" src="{{ asset('build/images/logo.svg') }}" alt="Логотип readme" width="128" height="24">
             </a>
             <p class="header__topic">
                 micro blogging
