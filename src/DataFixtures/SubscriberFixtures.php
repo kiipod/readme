@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\DataFixtures;
 
 use App\Entity\Subscriber;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -34,8 +35,8 @@ class SubscriberFixtures extends Fixture implements DependentFixtureInterface
                 $subscribedId = $faker->numberBetween(1, 10);
             }
 
-            $subscriber->setSubscriber($this->getReference('user_' . $subscriberId));
-            $subscriber->setSubscribed($this->getReference('user_' . $subscribedId));
+            $subscriber->setSubscriber($this->getReference('user_' . $subscriberId, User::class));
+            $subscriber->setSubscribed($this->getReference('user_' . $subscribedId, User::class));
 
             $manager->persist($subscriber);
         }

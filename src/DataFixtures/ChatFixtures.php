@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\DataFixtures;
 
 use App\Entity\Chat;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -28,8 +29,8 @@ class ChatFixtures extends Fixture implements DependentFixtureInterface
                 $recipientId = $faker->numberBetween(1, 10);
             }
 
-            $message->setSender($this->getReference('user_' . $senderId));
-            $message->setRecipient($this->getReference('user_' . $recipientId));
+            $message->setSender($this->getReference('user_' . $senderId, User::class));
+            $message->setRecipient($this->getReference('user_' . $recipientId, User::class));
 
             $manager->persist($message);
         }

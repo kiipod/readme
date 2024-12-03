@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
+use App\Entity\Hashtag;
+use App\Entity\Post;
 use App\Entity\PostHashtag;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -28,8 +30,8 @@ class PostHashtagFixtures extends Fixture implements DependentFixtureInterface
             $postHashtag = new PostHashtag();
 
             // Связываем случайный пост с случайным хэштегом
-            $postHashtag->setPost($this->getReference('post_' . $faker->numberBetween(1, 20)));
-            $postHashtag->setHashtag($this->getReference('hashtag_' . $faker->numberBetween(1, 5)));
+            $postHashtag->setPost($this->getReference('post_' . $faker->numberBetween(1, 20), Post::class));
+            $postHashtag->setHashtag($this->getReference('hashtag_' . $faker->numberBetween(1, 5), Hashtag::class));
 
             $manager->persist($postHashtag);
         }

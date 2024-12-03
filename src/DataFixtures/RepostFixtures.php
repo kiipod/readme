@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
+use App\Entity\Post;
 use App\Entity\Repost;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -28,8 +30,8 @@ class RepostFixtures extends Fixture implements DependentFixtureInterface
             $repost = new Repost();
 
             // Выбираем случайный пост и пользователя
-            $repost->setPost($this->getReference('post_' . $faker->numberBetween(1, 20)));
-            $repost->setRepostUser($this->getReference('user_' . $faker->numberBetween(1, 10)));
+            $repost->setPost($this->getReference('post_' . $faker->numberBetween(1, 20), Post::class));
+            $repost->setRepostUser($this->getReference('user_' . $faker->numberBetween(1, 10), User::class));
 
             $manager->persist($repost);
         }

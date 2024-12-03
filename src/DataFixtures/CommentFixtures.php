@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\DataFixtures;
 
 use App\Entity\Comment;
+use App\Entity\Post;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -22,8 +24,8 @@ class CommentFixtures extends Fixture implements DependentFixtureInterface
             $comment->setCreatedAt($faker->dateTime());
 
             // Связываем комментарии со случайными пользователями и публикациями
-            $comment->setPost($this->getReference('post_' . $faker->numberBetween(1, 20)));
-            $comment->setCommentator($this->getReference('user_' . $faker->numberBetween(1, 10)));
+            $comment->setPost($this->getReference('post_' . $faker->numberBetween(1, 20), Post::class));
+            $comment->setCommentator($this->getReference('user_' . $faker->numberBetween(1, 10), User::class));
 
             $manager->persist($comment);
         }

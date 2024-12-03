@@ -6,7 +6,7 @@ docker-down:
 docker-down-clear:
 	docker compose down -v --remove-orphans
 
-#WEBPACK_ENCORE
+#WEBPACK ENCORE
 compile:
 	npm run dev
 prod-build:
