@@ -11,10 +11,6 @@
     {% block styles %}
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
-
-    {% block scripts %}
-        {{ encore_entry_script_tags('app') }}
-    {% endblock %}
 </head>
 
 <body class="page page--main">
@@ -29,7 +25,7 @@
 
         <div class="header__logo-wrapper page__logo-wrapper">
             <a class="header__logo-link header__logo-link--active">
-                <img class="header__logo" src="{{ asset('build/images/logo.svg') }}" alt="Логотип readme" width="172" height="32">
+                <img class="header__logo" src="{{ asset('build/img/logo.svg') }}" alt="Логотип readme" width="172" height="32">
             </a>
             <p class="header__topic page__header-topic">
                 micro blogging
@@ -117,6 +113,10 @@
 </main>
 
 <twig:footer class="footer--main" />
+
+{% block scripts %}
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}
 
 </body>
 
