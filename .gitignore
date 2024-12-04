@@ -8,3 +8,7 @@
 /public/assets
 /assets/vendor
 /docker/dev/Nginx/logs
+/node_modules/
+/public/build/
+npm-debug.log
+yarn-error.log

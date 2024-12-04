@@ -1,6 +1,6 @@
-{% extends 'layouts/main.html.twig' %}
+{% extends 'layouts/base.html.twig' %}
 
-{% block title %}Readme форма авторизации{% endblock %}
+{% block title %}readme: авторизация{% endblock %}
 
 {% block content %}
 
@@ -18,12 +18,6 @@
 
                 {% if error %}
                     <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                {% endif %}
-
-                {% if app.user %}
-                    <div class="mb-3">
-                        You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-                    </div>
                 {% endif %}
 
                 <div class="login__input-wrapper form__input-wrapper">

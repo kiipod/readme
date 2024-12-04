@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\DataFixtures;
 
+use App\Entity\Post;
 use App\Entity\PostLike;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -28,8 +30,8 @@ class PostLikeFixtures extends Fixture implements DependentFixtureInterface
             $postLike = new PostLike();
 
             // Связываем лайк с публикацией и пользователем
-            $postLike->setPost($this->getReference('post_' . $faker->numberBetween(1, 20)));
-            $postLike->setLikeUser($this->getReference('user_' . $faker->numberBetween(1, 10)));
+            $postLike->setPost($this->getReference('post_' . $faker->numberBetween(1, 20), Post::class));
+            $postLike->setLikeUser($this->getReference('user_' . $faker->numberBetween(1, 10), User::class));
 
             $manager->persist($postLike);
         }

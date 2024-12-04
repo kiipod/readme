@@ -6,9 +6,11 @@ docker-down:
 docker-down-clear:
 	docker compose down -v --remove-orphans
 
-#ASSET_MAPPER
+#WEBPACK ENCORE
 compile:
-	php bin/console asset-map:compile
+	npm run dev
+prod-build:
+	npm run build
 
 #APP
 migration:
@@ -17,3 +19,5 @@ migrate:
 	php bin/console doctrine:migrations:migrate
 fixt-load:
 	php bin/console doctrine:fixtures:load
+cache-clear:
+	php bin/console cache:clear

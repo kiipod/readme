@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\DataFixtures;
 
 use App\Entity\Post;
+use App\Entity\TypePost;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -37,8 +39,8 @@ class PostFixtures extends Fixture implements DependentFixtureInterface
             $post->setCreatedAt($faker->dateTime());
 
             // Устанавливаем случайного пользователя и тип публикации
-            $post->setCreator($this->getReference('user_' . $faker->numberBetween(1, 10)));
-            $post->setType($this->getReference('type_' . $faker->randomElement(['post', 'image', 'video', 'quote', 'link'])));
+            $post->setCreator($this->getReference('user_' . $faker->numberBetween(1, 10), User::class));
+            $post->setType($this->getReference('type_' . $faker->randomElement(['post', 'image', 'video', 'quote', 'link']), TypePost::class));
 
             $manager->persist($post);
 

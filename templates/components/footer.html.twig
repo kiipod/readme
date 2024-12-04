@@ -1,25 +1,9 @@
-<!DOCTYPE html>
+<footer class="footer{{ class is defined and class ? ' ' ~ class }}">
 
-<html lang="ru">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}readme: блог, каким он должен быть{% endblock %}</title>
-
-    {% block scripts %}
-        {% block importmap %}{{ importmap('app') }}{% endblock %}
-    {% endblock %}
-</head>
-
-<body class="page page--main">
-
-{% block content %}{% endblock %}
-
-<footer class="footer">
     <div class="footer__wrapper">
+
         <div class="footer__container container">
+
             <div class="footer__site-info">
                 <div class="footer__site-nav">
                     <ul class="footer__info-pages">
@@ -47,6 +31,7 @@
                     При использовании любых материалов с сайта обязательно указание Readme в качестве источника. Все авторские и исключительные права в рамках проекта защищены в соответствии с положениями 4 части Гражданского Кодекса Российской Федерации.
                 </p>
             </div>
+
             <div class="footer__my-info">
                 <ul class="footer__my-pages">
                     <li class="footer__my-page footer__my-page--feed">
@@ -68,10 +53,9 @@
                     </a>
                 </div>
             </div>
+
         </div>
+
     </div>
+
 </footer>
-
-</body>
-
-</html>
