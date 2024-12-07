@@ -31,6 +31,7 @@ class UserFixtures extends Fixture
             $user->setAvatarFile($faker->imageUrl(100, 100, 'people', true, 'avatar'));
             $user->setRoles(['ROLE_USER']);
             $user->setCreatedAt($faker->dateTime());
+            $user->setVerified(false);
 
             $manager->persist($user);
 
