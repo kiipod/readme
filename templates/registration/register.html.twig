@@ -1,23 +1,99 @@
-<!DOCTYPE html>
+{% extends 'layouts/base.html.twig' %}
 
-<title>Register</title>
+{% block title %}readme: регистрация{% endblock %}
 
-{% block body %}
-    {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
+{% block content %}
 
-    <h1>Register</h1>
+    <main class="page__main page__main--registration">
 
-    {{ form_errors(registrationForm) }}
+        <div class="container">
+            <h1 class="page__title page__title--registration">Регистрация</h1>
+        </div>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+        <section class="registration container">
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+            <h2 class="visually-hidden">Форма регистрации</h2>
+
+            {{ form_start(registrationForm, { attr: { class: 'registration__form form' } }) }}
+
+            <div class="form__text-inputs-wrapper">
+
+                <div class="form__text-inputs">
+
+                    {% for field in ['email', 'login', 'plainPassword.first', 'plainPassword.second'] %}
+
+                        {% set formField = field|split('.')|reduce((carry, part) => attribute(carry, part), registrationForm) %}
+
+                        <div class="registration__input-wrapper form__input-wrapper">
+
+                            {{ form_label(formField, null, { label_attr: { class: 'registration__label form__label' } }) }}
+
+                            <div class="form__input-section {{ not formField.vars.valid ? 'form__input-section--error' }}">
+
+                                {{ form_widget(formField, { attr: { class: 'registration__input form__input', placeholder: formField.vars.label } }) }}
+
+                                {% if formField.vars.errors|length > 0 %}
+
+                                    <button class="form__error-button button" type="button">!
+                                        <span class="visually-hidden">Информация об ошибке</span>
+                                    </button>
+
+                                    <div class="form__error-text">
+                                        <h3 class="form__error-title">Ошибка</h3>
+                                        <p class="form__error-desc">{{ formField.vars.errors[0].message }}</p>
+                                    </div>
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+                {% if registrationForm.vars.errors|length > 0 %}
+                    <div class="form__invalid-block">
+                        <b class="form__invalid-slogan">Пожалуйста, исправьте следующие ошибки:</b>
+                        <ul class="form__invalid-list">
+                            {% for error in registrationForm.vars.errors %}
+                                <li class="form__invalid-item">{{ error.message }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+
+            </div>
+
+            <div class="registration__input-file-container form__input-container form__input-container--file">
+
+                <div class="registration__input-file-wrapper form__input-file-wrapper">
+
+                    <div class="registration__file-zone form__file-zone dropzone">
+                        {{ form_widget(registrationForm.userpicFile, { attr: { class: 'registration__input-file form__input-file', id: 'userpic-file', title: ' ' } }) }}
+                        <div class="form__file-zone-text">
+                            <span>Перетащите фото сюда</span>
+                        </div>
+                    </div>
+
+                    <button class="registration__input-file-button form__input-file-button button" type="button">
+                        <span>Выбрать фото</span>
+                        <svg class="registration__attach-icon form__attach-icon" width="10" height="20">
+                            <use xlink:href="#icon-attach"></use>
+                        </svg>
+                    </button>
+
+                </div>
+
+            </div>
+
+            <button class="registration__submit button button--main" type="submit">Отправить</button>
+
+            {{ form_end(registrationForm) }}
+
+        </section>
+
+    </main>
+
 {% endblock %}

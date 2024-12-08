@@ -35,7 +35,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $avatar_file = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column]
     private ?array $roles = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
@@ -94,6 +94,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __construct()
     {
+        $this->created_at = new \DateTime();
+        $this->roles = ['ROLE_USER'];
+
         $this->senders = new ArrayCollection();
         $this->recipients = new ArrayCollection();
         $this->subscribers = new ArrayCollection();
@@ -148,7 +151,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // гарантировать, что у каждого пользователя есть хотя бы ROLE_USER
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
