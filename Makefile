@@ -14,10 +14,10 @@ prod-build:
 
 #APP
 migration:
-	php bin/console make:migration
+	docker exec -it app php bin/console make:migration
 migrate:
-	php bin/console doctrine:migrations:migrate
+	docker exec -it app php bin/console doctrine:migrations:migrate
 fixt-load:
-	php bin/console doctrine:fixtures:load
+	docker exec -it app php bin/console doctrine:fixtures:load
 cache-clear:
-	php bin/console cache:clear
+	docker exec -it app php bin/console cache:clear

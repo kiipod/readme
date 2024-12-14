@@ -7,7 +7,7 @@ COPY conf.d /usr/local/etc/php/conf.d
 RUN apk add --no-cache curl git build-base zlib-dev oniguruma-dev autoconf icu-dev bash
 
 # Postgres
-RUN apk add --no-cache libpq-dev \
+RUN apk add --no-cache libpq-dev postgresql \
     && docker-php-ext-install pdo_pgsql
 
 # Intl
