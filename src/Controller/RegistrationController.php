@@ -91,20 +91,25 @@ class RegistrationController extends AbstractController
     #[Route('/verify/email', name: 'verify_email')]
     public function verifyUserEmail(Request $request, TranslatorInterface $translator): Response
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        $userId = $this->extractUserIdFromRequest($request);
 
-        try {
-            /** @var User $user */
-            $user = $this->getUser();
-            $this->emailVerifier->handleEmailConfirmation($request, $user);
-        } catch (VerifyEmailExceptionInterface $exception) {
-            $this->addFlash('verify_email_error', $translator->trans($exception->getReason(), [], 'VerifyEmailBundle'));
-
+        if (!$userId) {
+            $this->addFlash('verify_email_error', 'Invalid verification link.');
             return $this->redirectToRoute('login');
         }
 
-        $this->addFlash('success', 'Your email address has been verified.');
+        // Пытаемся найти пользователя по ID
+        $user = $this->userRepository->find($userId);
 
+        // Если пользователь не найден
+        if (!$user) {
+            throw $this->createNotFoundException('User not found.');
+        }
+
+        // Подтверждаем email
+        $this->emailVerifier->handleEmailConfirmation($request, $user);
+
+        $this->addFlash('success', 'Your email address has been verified.');
         return $this->redirectToRoute('login');
     }
 }
