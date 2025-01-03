@@ -23,4 +23,3 @@ cache-clear:
 	docker exec -it app php bin/console cache:clear
 worker:
 	docker exec -it app php bin/console messenger:consume async --time-limit=3600 --memory-limit=128M
-

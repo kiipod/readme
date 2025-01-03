@@ -39,8 +39,11 @@ class EmailVerifier
         $this->mailer->send($email);
     }
 
+
     /**
-     * @throws VerifyEmailExceptionInterface
+     * @param Request $request
+     * @param User $user
+     * @return void
      */
     public function handleEmailConfirmation(Request $request, User $user): void
     {
