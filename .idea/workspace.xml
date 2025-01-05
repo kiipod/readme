@@ -5,11 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="07fc63c6-6a94-4457-88b9-5967bcd46db0" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.env.dev.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.dev.example" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/readme.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/readme.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/RegistrationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RegistrationController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Security/EmailVerifier.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Security/EmailVerifier.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/registration/confirmation_email.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/confirmation_email.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/layouts/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/layouts/base.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -176,7 +177,7 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;auth&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main-page&quot;,
     &quot;last_opened_file_path&quot;: &quot;/home/kpodryadov/projects/readme&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -214,6 +215,9 @@
       <workItem from="1733724078478" duration="7000" />
       <workItem from="1735734517410" duration="5226000" />
       <workItem from="1735917043359" duration="1707000" />
+      <workItem from="1736082515761" duration="85000" />
+      <workItem from="1736089016089" duration="102000" />
+      <workItem from="1736090102457" duration="4109000" />
     </task>
     <servers />
   </component>
